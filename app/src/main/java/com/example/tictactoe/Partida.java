@@ -36,6 +36,7 @@ class Partida {
 
         return true;
     }
+    //
 
     public int turno(){
 
