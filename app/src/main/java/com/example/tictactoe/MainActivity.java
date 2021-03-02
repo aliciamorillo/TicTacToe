@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -102,17 +103,47 @@ public class MainActivity extends Activity {
 
         marca(casilla);
         //Después de marcar, cambia de turno
-        partida.turno();
+        int resultado = partida.turno();
+
+        if(resultado>0){
+            terminar(resultado);
+            return;
+        }
 
         casilla = partida.inteligenciaArtificial();
 
-        while(partida.compruebaCasilla(casilla) != true){
+        while(!partida.compruebaCasilla(casilla)){
             casilla = partida.inteligenciaArtificial();
         }
 
         marca(casilla);
 
-        partida.turno();
+        resultado = partida.turno();
+
+        if(resultado>0){
+            terminar(resultado);
+        }
+    }
+
+
+    private void terminar(int resultado) {
+        String mensaje;
+
+        if(resultado == 1) mensaje = "Gana Circulo";
+
+        else if(resultado == 2) mensaje = "Gana Cruz";
+
+        else mensaje = "Empate";
+
+        Toast toast = Toast.makeText(this, mensaje, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
+
+        partida = null;
+
+        ((Button)findViewById(R.id.unJugador)).setEnabled(true);
+        ((RadioGroup)findViewById(R.id.configDificultad)).setAlpha(1);
+        ((Button)findViewById(R.id.dosJugadores)).setEnabled(true);
     }
 
 

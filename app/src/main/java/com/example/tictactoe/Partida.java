@@ -98,14 +98,34 @@ class Partida {
             if(cuantasLleva==2 && casilla!=-1){
                 return casilla;
             }
+
+            casilla = -1;
+            cuantasLleva = 0;
         }
 
-        return casilla;
+        return -1;
     }
 
 
     public int inteligenciaArtificial(){
         int casilla;
+
+        casilla = dosEnRaya(2);
+
+        if(casilla != -1) return casilla;
+
+        if(dificultad>0){
+            casilla=dosEnRaya(1);
+
+            if(casilla!=-1) return casilla;
+        }
+
+        if(dificultad==2){
+            if(casillas[0]==0) return 0;
+            if(casillas[2]==2) return 2;
+            if(casillas[6]==6) return 6;
+            if(casillas[8]==8) return 8;
+        }
 
         Random casillaAzar = new Random();
         casilla = casillaAzar.nextInt(9);
