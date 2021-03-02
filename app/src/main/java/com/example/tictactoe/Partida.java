@@ -36,7 +36,7 @@ class Partida {
 
         return true;
     }
-    //
+
 
     public int turno(){
 
@@ -77,7 +77,31 @@ class Partida {
     }
 
 
-    public int casillaClave
+    public int dosEnRaya(int jugadorTurno){
+        //Inicializa en una casilla que no existe
+        int casilla = -1;
+        int cuantasLleva = 0;
+
+        for (int i=0;i<combinaciones.length;i++) {
+
+            for (int posicion : combinaciones[i]) {
+
+                if(casillas[posicion]==jugadorTurno){
+                    cuantasLleva++;
+                }
+
+                if(casillas[posicion]==0){
+                    casilla = posicion;
+                }
+            }
+
+            if(cuantasLleva==2 && casilla!=-1){
+                return casilla;
+            }
+        }
+
+        return casilla;
+    }
 
 
     public int inteligenciaArtificial(){
